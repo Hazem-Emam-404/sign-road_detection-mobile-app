@@ -28,6 +28,7 @@ dependencies:
 
   # Audio
   just_audio: ^0.9.42
+  audio_session: ^0.1.21
 
   # UI / animations / effects
   google_fonts: ^6.2.1

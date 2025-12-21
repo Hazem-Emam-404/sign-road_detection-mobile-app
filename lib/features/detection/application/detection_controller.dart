@@ -6,12 +6,15 @@ import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:io' show Platform, SocketException;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../shared/services/audio_service.dart';
 import '../../../shared/services/haptics.dart';
 import '../../../shared/services/http_client.dart';
+import '../../../shared/services/tts_service.dart';
+import '../../../shared/constants/sign_translations.dart';
 import '../../settings/application/settings_controller.dart';
 import '../domain/detection_state.dart';
 
@@ -114,11 +117,14 @@ class DetectionController extends StateNotifier<DetectionState>
 
       final controller = CameraController(
         camera,
-        ResolutionPreset.high,
+        ResolutionPreset.veryHigh, // Maximizing quality as requested
         enableAudio: false,
       );
 
       await controller.initialize();
+      // Lock orientation to avoid rotated images on Android
+      await controller.lockCaptureOrientation(DeviceOrientation.portraitUp);
+      
       state = state.copyWith(controller: controller, isInitialized: true);
       // If start() was called before init, begin detection now
       if (_shouldAutoStart) {
@@ -270,6 +276,14 @@ class DetectionController extends StateNotifier<DetectionState>
               _ref.read(settingsControllerProvider).soundEnabled;
           if (playSound) {
             await AudioService().playDetectionTone(_ref);
+            
+            // Speak the sign name in Arabic
+            final arabicText = signTranslations[normalized] ?? signTranslations[normalized.toLowerCase()];
+            if (arabicText != null && arabicText.isNotEmpty) {
+              // Small delay to let the beep finish or start properly
+              await Future.delayed(const Duration(milliseconds: 300));
+              await TtsService().speak(arabicText, languageCode: 'ar');
+            }
           }
         }
 

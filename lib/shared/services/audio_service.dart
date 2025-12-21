@@ -5,16 +5,24 @@ import 'dart:math' as math;
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:audio_session/audio_session.dart';
 
 import '../../features/settings/application/settings_controller.dart';
 
 class AudioService {
-  AudioService._internal();
+  AudioService._internal() {
+    _initSession();
+  }
 
   static final AudioService _instance = AudioService._internal();
   factory AudioService() => _instance;
 
   final _player = AudioPlayer();
+
+  Future<void> _initSession() async {
+    final session = await AudioSession.instance;
+    await session.configure(const AudioSessionConfiguration.speech());
+  }
 
   Future<void> playDetectionTone(Ref? ref) async {
     // Check if sound is enabled in settings

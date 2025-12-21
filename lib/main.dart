@@ -35,5 +35,3 @@ class SignGuardApp extends ConsumerWidget {
     );
   }
 }
-
-
