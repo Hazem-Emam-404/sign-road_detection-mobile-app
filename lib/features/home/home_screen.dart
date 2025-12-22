@@ -8,6 +8,7 @@ import '../detection/application/detection_controller.dart';
 import '../detection/presentation/detection_screen.dart';
 import '../learn/presentation/learn_screen.dart';
 import '../settings/presentation/settings_screen.dart';
+import '../upload/presentation/upload_screen.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -46,6 +47,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final pages = [
       const DetectionScreen(),
       const LearnScreen(),
+      const UploadScreen(),
       const SettingsScreen(),
     ];
 
@@ -56,19 +58,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           l10n.appName,
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.language),
-            onPressed: () {
-              final notifier = ref.read(localeProvider.notifier);
-              final current = ref.read(localeProvider);
-              if (current?.languageCode == 'en') {
-                notifier.setArabic();
-              } else {
-                notifier.setEnglish();
-              }
-            },
-          ),
+        actions: const [
+          // IconButton(
+          //   icon: const Icon(Icons.language),
+          //   onPressed: () {
+          //     final notifier = ref.read(localeProvider.notifier);
+          //     final current = ref.read(localeProvider);
+          //     if (current?.languageCode == 'en') {
+          //       notifier.setArabic();
+          //     } else {
+          //       notifier.setEnglish();
+          //     }
+          //   },
+          // ),
         ],
       ),
       body: AnimatedSwitcher(
@@ -90,6 +92,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: ClipRRect(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
           child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed, // Ensure all items are visible
             currentIndex: _index,
             onTap: _handleTabChange,
             items: [
@@ -100,6 +103,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               BottomNavigationBarItem(
                 icon: const Icon(Icons.menu_book_outlined),
                 label: l10n.learn,
+              ),
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.upload_file),
+                label: 'Upload',
               ),
               BottomNavigationBarItem(
                 icon: const Icon(Icons.settings_outlined),

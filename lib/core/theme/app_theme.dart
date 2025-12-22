@@ -7,6 +7,17 @@ class AppColors {
   static const background = Color(0xFF05030B);
   static const surface = Color(0xFF11111A);
   static const surfaceSecondary = Color(0xFF1A1B25);
+  static const errorRed = Color(0xFFFF4B4B);
+
+  static const backgroundGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFF0F0C29),
+      Color(0xFF302B63),
+      Color(0xFF24243E),
+    ],
+  );
 }
 
 class AppTheme {

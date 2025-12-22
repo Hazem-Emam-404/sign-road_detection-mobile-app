@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
@@ -10,11 +9,9 @@ import 'package:flutter/services.dart';
 import 'dart:io' show Platform, SocketException;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../shared/services/audio_service.dart';
 import '../../../shared/services/haptics.dart';
 import '../../../shared/services/http_client.dart';
 import '../../../shared/services/tts_service.dart';
-import '../../../shared/constants/sign_translations.dart';
 import '../../settings/application/settings_controller.dart';
 import '../domain/detection_state.dart';
 
@@ -124,7 +121,7 @@ class DetectionController extends StateNotifier<DetectionState>
       await controller.initialize();
       // Lock orientation to avoid rotated images on Android
       await controller.lockCaptureOrientation(DeviceOrientation.portraitUp);
-      
+
       state = state.copyWith(controller: controller, isInitialized: true);
       // If start() was called before init, begin detection now
       if (_shouldAutoStart) {
@@ -270,20 +267,12 @@ class DetectionController extends StateNotifier<DetectionState>
 
       if (changed || confidence != state.confidence) {
         if (changed) {
-          await Haptics.lightImpact();
-          final playSound = changed &&
-              normalized != 'no_sign' &&
-              _ref.read(settingsControllerProvider).soundEnabled;
-          if (playSound) {
-            await AudioService().playDetectionTone(_ref);
-            
-            // Speak the sign name in Arabic
-            final arabicText = signTranslations[normalized] ?? signTranslations[normalized.toLowerCase()];
-            if (arabicText != null && arabicText.isNotEmpty) {
-              // Small delay to let the beep finish or start properly
-              await Future.delayed(const Duration(milliseconds: 300));
-              await TtsService().speak(arabicText, languageCode: 'ar');
-            }
+          if (normalized != 'no_sign' && settings.soundEnabled) {
+            Haptics.lightImpact();
+            TtsService().speak(
+              normalized,
+              languageCode: 'en-US',
+            );
           }
         }
 
