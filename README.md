@@ -2,7 +2,8 @@
 
 SignGuard is a premium Flutter application designed to enhance road safety and driver awareness through real-time traffic sign detection and interactive learning. Built with a focus on ease of use and accessibility, SignGuard leverages advanced image processing to identify road signs instantly.
 
-> **📥 Download Now**: [Get the latest APK](INSERT_APK_LINK_HERE) | [Get the latest IPA](INSERT_IPA_LINK_HERE)
+> **📥 Download Now**: [Get the latest APK](https://www.dropbox.com/scl/fi/ytcqjfnka22m1uvcag7ng/app-release.apk?rlkey=lgw96iok2awz3nzc0s2elm54h&st=3ifd1rzj&dl=0) | [Get the latest IPA](https://www.dropbox.com/scl/fi/8r110un12i8f6r9c7p31m/road_sign_detection.ipa?rlkey=sgyzl85nr3fdfx8lz04hhy44b&st=0fpqtbvv&dl=0)
+> **📔Preview Now**: [Preview](https://singguar.netlify.app/)
 
 ## 🚀 Key Features
 
