@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'dart:io' show Platform, SocketException;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/config/app_config.dart';
 import '../../../shared/services/haptics.dart';
 import '../../../shared/services/http_client.dart';
 import '../../../shared/services/tts_service.dart';
@@ -25,7 +26,7 @@ class DetectionController extends StateNotifier<DetectionState>
   DetectionController(this._ref) : super(DetectionState.initial()) {
     _init();
     WidgetsBinding.instance.addObserver(this);
-    // Listen to settings changes so detection keeps working when user updates URL or interval.
+    // Listen to settings changes so detection keeps working when user updates interval.
     _ref.listen<SettingsState>(
       settingsControllerProvider,
       (previous, next) {
@@ -33,16 +34,9 @@ class DetectionController extends StateNotifier<DetectionState>
           final prev = previous;
           final curr = next;
           if (prev == null) return;
-          final serverChanged = prev.serverUrl != curr.serverUrl;
           final intervalChanged = prev.intervalSeconds != curr.intervalSeconds;
-          if (serverChanged) {
-            // Clear transient network errors when user changes server url
-            state = state.copyWith(error: null);
-          }
-          if ((serverChanged || intervalChanged) &&
-              state.isRunning &&
-              state.isInitialized) {
-            // Reschedule timer so new interval or endpoint is applied immediately.
+          if (intervalChanged && state.isRunning && state.isInitialized) {
+            // Reschedule timer so new interval is applied immediately.
             _scheduleTimer();
           }
         } catch (_) {
@@ -205,7 +199,7 @@ class DetectionController extends StateNotifier<DetectionState>
       // Determine detect endpoint:
       // - If stored URL contains a path (e.g. /detect), use it as the endpoint.
       // - If stored URL is a base (no path), append /detect.
-      String stored = settings.serverUrl;
+      String stored = AppConfig.apiServerUrl;
       // Ensure scheme exists so Uri.parse works consistently.
       if (!stored.startsWith(RegExp(r'https?://'))) {
         stored = 'http://$stored';

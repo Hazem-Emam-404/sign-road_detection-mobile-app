@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:signguard/core/localization/locale_provider.dart';
 
 import '../../core/localization/app_localizations.dart';
-import '../../core/localization/locale_provider.dart';
 import '../../core/theme/app_theme.dart';
 import '../detection/application/detection_controller.dart';
 import '../detection/presentation/detection_screen.dart';
@@ -58,19 +58,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           l10n.appName,
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
-        actions: const [
-          // IconButton(
-          //   icon: const Icon(Icons.language),
-          //   onPressed: () {
-          //     final notifier = ref.read(localeProvider.notifier);
-          //     final current = ref.read(localeProvider);
-          //     if (current?.languageCode == 'en') {
-          //       notifier.setArabic();
-          //     } else {
-          //       notifier.setEnglish();
-          //     }
-          //   },
-          // ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.language),
+            onPressed: () {
+              final notifier = ref.read(localeProvider.notifier);
+              final current = ref.read(localeProvider);
+              if (current?.languageCode == 'en') {
+                notifier.setArabic();
+              } else {
+                notifier.setEnglish();
+              }
+            },
+          ),
         ],
       ),
       body: AnimatedSwitcher(

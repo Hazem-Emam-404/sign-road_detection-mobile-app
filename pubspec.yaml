@@ -44,6 +44,9 @@ dependencies:
     sdk: flutter
   intl: ^0.20.2
 
+  # Environment variables
+  flutter_dotenv: ^5.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -57,5 +60,6 @@ flutter:
     - assets/sounds/
     - assets/icons/
     - assets/splash/
+    - .env
 
 

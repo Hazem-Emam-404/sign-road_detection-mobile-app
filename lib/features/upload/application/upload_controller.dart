@@ -7,6 +7,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:signguard/shared/services/haptics.dart';
 
+import '../../../core/config/app_config.dart';
 import '../../../shared/services/http_client.dart';
 import '../../../shared/services/tts_service.dart';
 import '../../settings/application/settings_controller.dart';
@@ -64,7 +65,7 @@ class UploadController extends StateNotifier<UploadState> {
       });
 
       // Resolve URL similar to DetectionController
-      String stored = settings.serverUrl;
+      String stored = AppConfig.apiServerUrl;
       if (!stored.startsWith(RegExp(r'https?://'))) {
         stored = 'http://$stored';
       }

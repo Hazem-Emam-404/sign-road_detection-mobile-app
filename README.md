@@ -1,16 +1,78 @@
-# sign_detection_app
+# SignGuard - Intelligent Traffic Sign Detection
 
-A new Flutter project.
+SignGuard is a premium Flutter application designed to enhance road safety and driver awareness through real-time traffic sign detection and interactive learning. Built with a focus on ease of use and accessibility, SignGuard leverages advanced image processing to identify road signs instantly.
 
-## Getting Started
+> **📥 Download Now**: [Get the latest APK](INSERT_APK_LINK_HERE) | [Get the latest IPA](INSERT_IPA_LINK_HERE)
 
-This project is a starting point for a Flutter application.
+## 🚀 Key Features
 
-A few resources to get you started if this is your first Flutter project:
+*   **Real-time Detection**: Instantly detect and identify traffic signs using the device camera.
+*   **Image Upload Analysis**: Analyze images from your gallery to identify signs offline.
+*   **Interactive Learning**: Learn about different traffic signs through an engaging quiz and catalog system.
+*   **Text-to-Speech (TTS)**: Receive auditory feedback for detected signs, supporting Arabic language for local relevance.
+*   **Smart Settings**: Customize your experience with dark mode, sound settings, and more.
+*   **Offline Capability**: Core detection features work without an active internet connection (model dependent).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🛠️ Technology Stack
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+*   **Framework**: [Flutter](https://flutter.dev/) (Dart)
+*   **State Management**: [Riverpod](https://riverpod.dev/)
+*   **Networking**: [Dio](https://pub.dev/packages/dio)
+*   **Dependency Injection**: Riverpod
+*   **Image Processing**: Native Camera integration & custom ML integration
+*   **Audio**: `just_audio` & `flutter_tts` for seamless sound effects and speech
+*   **Local Storage**: `shared_preferences`
+
+## 📂 Project Structure
+
+```
+lib/
+├── features/
+│   ├── detection/    # Real-time camera detection logic
+│   ├── home/         # Main dashboard and navigation
+│   ├── learn/        # Educational content and quizzes
+│   ├── upload/       # Image picker and static analysis
+│   └── settings/     # App configuration and preferences
+├── main.dart         # Entry point
+└── ...
+```
+
+## 🚥 Getting Started
+
+Follow these steps to set up the project locally.
+
+### Prerequisites
+
+*   [Flutter SDK](https://docs.flutter.dev/get-started/install) (3.3.0 or higher)
+*   Android Studio / VS Code with Flutter extensions
+*   Active internet connection for fetching dependencies
+
+### Installation
+
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/yourusername/sign-road_detection-mobile-app.git
+    cd sign-road_detection-mobile-app
+    ```
+
+2.  **Install dependencies**
+    ```bash
+    flutter pub get
+    ```
+
+3.  **Environment Setup**
+    Create a `.env` file in the root directory (refer to `.env.example` if available) to configure any necessary API keys or environment variables.
+
+4.  **Run the App**
+    Connect your device or start an emulator and run:
+    ```bash
+    flutter run
+    ```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
